@@ -3,11 +3,11 @@ const router = express.Router();
 
 /* GET home page. */
 router.get('/', (req, res) => {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'AccountsDemo' });
 });
 
 router.get('/account', (req, res) => {
-  res.render('account', { title: '记账本' });
+  res.render('account', { basedir: 'views', title: '记账本' });
 });
 
 router.post('/account', (req, res) => {
