@@ -1,4 +1,4 @@
-extends ../layout
+extends /layout
 
 mixin panel(options)
   .panel(class='panel-' + options.type)
@@ -7,15 +7,15 @@ mixin panel(options)
       .col-xs-6= options.title
       .col-xs-2.text-center
         span.label(class='label-' + options.subTitleType)= options.subTitle
-      .col-xs-2.text-rignt #{options.money} 元
+      .col-xs-2.text-rignt #{options.money} 元 #{basedir}
       .col-xs-2.text-rignt
         span.glyphicon.glyphicon-remove(aria-hidden="true")
 
-block headContent
+block append headLink
   style
     include index.css
 
-block content
+block body
   .container
     .row
       .col-xs-12.col-lg-8.col-lg-offset-2
