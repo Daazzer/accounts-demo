@@ -1,0 +1,51 @@
+extends layout
+
+mixin panel(options)
+  .panel(class='panel-' + options.type)
+    .panel-heading= options.time
+    .panel-body
+      .col-xs-6= options.title
+      .col-xs-2.text-center
+        span.label(class='label-' + options.subTitleType)= options.subTitle
+      .col-xs-2.text-rignt #{options.money} 元
+      .col-xs-2.text-rignt
+        span.glyphicon.glyphicon-remove(aria-hidden="true")
+
+block headContent
+  style.
+    label {
+      font-weight: normal;
+    }
+
+    .panel-body .glyphicon-remove {
+      display: none;
+    }
+
+    .panel-body:hover .glyphicon-remove {
+      display: inline-block
+    }
+
+
+block content
+  .container
+    .row
+      .col-xs-12.col-lg-8.col-lg-offset-2
+        h2= title
+        hr
+        .accounts
+          +panel({
+            type: 'danger',
+            time: '2023-04-05',
+            subTitle: '支出',
+            subTitleType: 'warning',
+            title: '抽烟只抽煊赫门，一生只爱一个人',
+            money: 25
+          })
+          +panel({
+            type: 'success',
+            time: '2023-04-15',
+            subTitle: '收入',
+            subTitleType: 'success',
+            title: '3 月份发工资',
+            money: 4396
+          })
