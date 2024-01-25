@@ -1,0 +1,15 @@
+extends layout
+
+block append headLink
+  style.
+    .h-50 {
+      height: 50px;
+    }
+
+block body
+  .container
+    .h-50
+    .alert.alert-success(role="alert")
+      h1= title
+      p
+        a(href=url) 点击跳转

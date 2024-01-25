@@ -19,7 +19,7 @@ router.post('/account', (req, res) => {
   const id = shortid.generate();
   // 写入文件
   db.get('accounts').unshift({ id, ...req.body }).write();
-  res.send('添加记录');
+  res.render('success', { title: ':) 添加成功', url: '/account' });
 });
 
 router.get('/account/create', (req, res) => {
