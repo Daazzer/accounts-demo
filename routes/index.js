@@ -12,7 +12,8 @@ router.get('/', (req, res) => {
 });
 
 router.get('/account', (req, res) => {
-  res.render('account', { basedir: 'views', title: '记账本' });
+  const accounts = db.get('accounts').value();
+  res.render('account', { basedir: 'views', title: '记账本', accounts });
 });
 
 router.post('/account', (req, res) => {
@@ -24,6 +25,12 @@ router.post('/account', (req, res) => {
 
 router.get('/account/create', (req, res) => {
   res.render('account-create', { title: '添加记录' });
+});
+
+router.get('/account/:id', (req, res) => {
+  const id = req.params.id;
+  db.get('accounts').remove({ id }).write();
+  res.render('success', { title: ':) 删除成功', url: '/account' });
 });
 
 module.exports = router;

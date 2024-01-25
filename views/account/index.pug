@@ -1,16 +1,5 @@
 extends /layout
 
-mixin panel(options)
-  .panel(class='panel-' + options.type)
-    .panel-heading= options.time
-    .panel-body
-      .col-xs-6= options.title
-      .col-xs-2.text-center
-        span.label(class='label-' + options.subTitleType)= options.subTitle
-      .col-xs-2.text-rignt #{options.money} 元
-      .col-xs-2.text-rignt
-        span.glyphicon.glyphicon-remove(aria-hidden="true")
-
 block append headLink
   style
     include index.css
@@ -22,19 +11,16 @@ block body
         h2= title
         hr
         .accounts
-          +panel({
-            type: 'danger',
-            time: '2023-04-05',
-            subTitle: '支出',
-            subTitleType: 'warning',
-            title: '抽烟只抽煊赫门，一生只爱一个人',
-            money: 25
-          })
-          +panel({
-            type: 'success',
-            time: '2023-04-15',
-            subTitle: '收入',
-            subTitleType: 'success',
-            title: '3 月份发工资',
-            money: 4396
-          })
+          each item in accounts
+            .panel(class=(`panel-${item.type === '-1' ? 'danger' : 'success'}`))
+              .panel-heading= item.time
+              .panel-body
+                .col-xs-6= item.title
+                .col-xs-2.text-center
+                  span.label(class=(`label-${item.type === '-1' ? 'warning' : 'success'}`))= item.type === '-1' ? '支出' : '收入'
+                .col-xs-2.text-rignt #{item.account} 元
+                .col-xs-2.text-rignt
+                  a(href=`/account/${item.id}`)
+                    span.glyphicon.glyphicon-remove(aria-hidden="true")
+          else
+            |暂无数据
