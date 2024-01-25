@@ -4,6 +4,7 @@ const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
 const adapter = new FileSync(__dirname + '/../data/db.json');
 const db = low(adapter);
+const shortid = require('shortid');
 
 /* GET home page. */
 router.get('/', (req, res) => {
@@ -15,9 +16,9 @@ router.get('/account', (req, res) => {
 });
 
 router.post('/account', (req, res) => {
-  console.log(req.body);
+  const id = shortid.generate();
   // 写入文件
-  db.get('accounts').push(req.body).write();
+  db.get('accounts').unshift({ id, ...req.body }).write();
   res.send('添加记录');
 });
 
