@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router();
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
+const moment = require('moment');
 const adapter = new FileSync(__dirname + '/../data/db.json');
 const db = low(adapter);
-const shortid = require('shortid');
+const AccountModel = require('../models/AccountModel');
 
 /* GET home page. */
 router.get('/', (req, res) => {
@@ -12,15 +13,33 @@ router.get('/', (req, res) => {
 });
 
 router.get('/account', (req, res) => {
-  const accounts = db.get('accounts').value();
-  res.render('account', { basedir: 'views', title: '记账本', accounts });
+  AccountModel.find().sort({ time: -1 }).exec((err, data) => {
+    if (err) {
+      res.status(500).send('读取失败');
+      return;
+    }
+
+    res.render('account', {
+      basedir: 'views',
+      title: '记账本',
+      accounts: data,
+      moment
+    });
+  });
 });
 
 router.post('/account', (req, res) => {
-  const id = shortid.generate();
   // 写入文件
-  db.get('accounts').unshift({ id, ...req.body }).write();
-  res.render('success', { title: ':) 添加成功', url: '/account' });
+  AccountModel.create({
+    ...req.body,
+    time: moment(req.body.time).toDate()
+  }, err => {
+    if (err) {
+      res.status(500).send('插入失败');
+      return;
+    }
+    res.render('success', { title: ':) 添加成功', url: '/account' });
+  });
 });
 
 router.get('/account/create', (req, res) => {
@@ -29,8 +48,13 @@ router.get('/account/create', (req, res) => {
 
 router.get('/account/:id', (req, res) => {
   const id = req.params.id;
-  db.get('accounts').remove({ id }).write();
-  res.render('success', { title: ':) 删除成功', url: '/account' });
+  AccountModel.deleteOne({ _id: id }, (err, data) => {
+    if (err) {
+      res.status(500).send('删除失败');
+      return;
+    }
+    res.render('success', { title: ':) 删除成功', url: '/account' });
+  })
 });
 
 module.exports = router;
