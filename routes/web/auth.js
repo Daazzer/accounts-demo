@@ -17,4 +17,24 @@ router.post('/reg', (req, res) => {
   });
 });
 
+router.get('/login', (req, res) => {
+  res.render('auth/login', { basedir: 'views', title: '登录' });
+});
+
+router.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  UserModel.findOne({ username, password: md5(password) }, (err, data) => {
+    if (err) {
+      return res.status(500).send('登录失败');
+    } else if (!data) {
+      return res.send('账号或密码错误');
+    }
+
+    req.session.username = data.username;
+    req.session._id = data.id;
+
+    res.render('success', { title: '登录成功', url: '/account' });
+  });
+});
+
 module.exports = router;

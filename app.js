@@ -4,11 +4,13 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const session = require('express-session')
 const logger = require('morgan');
+const MongoStore = require('connect-mongo');
+
+const { DB_HOST, DB_PROT, DB_NAME } = require('./config');
 
 const indexRouter = require('./routes/web');
 const authRouter = require('./routes/web/auth');
 const accountRouter = require('./routes/api/account');
-const MongoStore = require('connect-mongo');
 
 const app = express();
 
@@ -26,11 +28,11 @@ app.use(session({
   saveUninitialized: false,
   resave: true,
   store: MongoStore.create({
-    mongoUrl: 'mongodb://localhost:27017/bilibili'
+    mongoUrl: `mongodb://${DB_HOST}:${DB_PROT}/${DB_NAME}`
   }),
   cookie: {
     httpOnly: true,
-    maxAge: 3e5
+    maxAge: 6.048e8
   }
 }));
 app.use(express.static(path.resolve(__dirname, 'public')));
