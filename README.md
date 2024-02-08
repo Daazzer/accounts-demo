@@ -7,7 +7,7 @@
 # 普通开发调试
 
 ```bash
-npm start
+$ npm start
 ```
 
 
@@ -15,6 +15,6 @@ npm start
 # 带参数的开发调试
 
 ```bash
-npm run dev
+$ npm run dev
 ```
 
