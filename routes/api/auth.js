@@ -2,6 +2,7 @@ const express = require('express');
 const md5 = require('md5');
 const jwt = require('jsonwebtoken');
 const UserModel = require('../../models/UserModel');
+const { SECRET } = require('../../config');
 const router = express.Router();
 
 router.post('/login', (req, res) => {
@@ -24,7 +25,7 @@ router.post('/login', (req, res) => {
     const token = jwt.sign({
       username: data.username,
       id: data._id
-    }, 'shenmegui', {
+    }, SECRET, {
       expiresIn: 604800
     });
 

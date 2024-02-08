@@ -6,7 +6,7 @@ const session = require('express-session')
 const logger = require('morgan');
 const MongoStore = require('connect-mongo');
 
-const { DB_HOST, DB_PROT, DB_NAME } = require('./config');
+const { DB_HOST, DB_PROT, DB_NAME, SECRET } = require('./config');
 
 const indexRouter = require('./routes/web');
 const authRouter = require('./routes/web/auth');
@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({
   name: 'sid',
-  secret: 'shenmegui',
+  secret: SECRET,
   saveUninitialized: false,
   resave: true,
   store: MongoStore.create({
