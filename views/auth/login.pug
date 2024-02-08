@@ -1,0 +1,17 @@
+extends /layout
+
+block body
+  .container
+    .row
+      .col-xs-12.col-md-8.col-md-offset-2.col-lg-4.col-lg-offset-4
+        h2= title
+        hr
+        form(method="post" action="/login")
+        .form-group
+          label(for="item") 用户名
+          input#item.form-control(name="username" type="text")
+        .form-group
+          label(for="time") 密码
+          input#item.form-control(name="password" type="password")
+        hr
+        button.btn.btn-primary.btn-block(type="submit")= title
