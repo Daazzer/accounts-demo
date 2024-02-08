@@ -7,11 +7,11 @@ block body
         h2= title
         hr
         form(method="post" action="/login")
-        .form-group
-          label(for="item") 用户名
-          input#item.form-control(name="username" type="text")
-        .form-group
-          label(for="time") 密码
-          input#item.form-control(name="password" type="password")
-        hr
-        button.btn.btn-primary.btn-block(type="submit")= title
+          .form-group
+            label(for="username") 用户名
+            input#username.form-control(name="username" type="text")
+          .form-group
+            label(for="password") 密码
+            input#password.form-control(name="password" type="password")
+          hr
+          button.btn.btn-primary.btn-block(type="submit")= title
