@@ -4,4 +4,4 @@ $('#time').datepicker({
   autoclose: true,
   todayBtn: true,
   todayHighlight: true,
-})
+});
