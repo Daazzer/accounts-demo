@@ -9,3 +9,7 @@ label {
 .panel-body:hover .glyphicon-remove {
   display: inline-block
 }
+
+.pt-20 {
+  padding-top: 20px;
+}

@@ -13,7 +13,7 @@ router.post('/reg', (req, res) => {
       return res.status(500).send('注册失败');
     }
 
-    res.render('success', { title: '注册成功', url: '/login' });
+    res.render('success', { title: ':) 注册成功', url: '/login' });
   });
 });
 
@@ -33,7 +33,13 @@ router.post('/login', (req, res) => {
     req.session.username = data.username;
     req.session._id = data.id;
 
-    res.render('success', { title: '登录成功', url: '/account' });
+    res.render('success', { title: ':) 登录成功', url: '/account' });
+  });
+});
+
+router.get('/logout', (req, res) => {
+  req.session.destroy(() => {
+    res.render('success', { title: ':) 退出成功', url: '/login' });
   });
 });
 
