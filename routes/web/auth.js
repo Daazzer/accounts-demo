@@ -37,7 +37,7 @@ router.post('/login', (req, res) => {
   });
 });
 
-router.get('/logout', (req, res) => {
+router.post('/logout', (req, res) => {
   req.session.destroy(() => {
     res.render('success', { title: ':) 退出成功', url: '/login' });
   });
