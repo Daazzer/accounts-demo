@@ -7,7 +7,7 @@ const { SECRET } = require('../config');
  */
 module.exports = (req, res, next) => {
   const token = req.get('token');
-  jwt.verify(token, SECRET, err => {
+  jwt.verify(token, SECRET, (err, data) => {
     if (err) {
       res.json({
         code: '2004',
@@ -15,6 +15,7 @@ module.exports = (req, res, next) => {
         data: null
       });
     } else {
+      req.data = data;
       next();
     }
   });
