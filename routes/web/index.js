@@ -1,12 +1,13 @@
 const express = require('express');
-const router = express.Router();
 const moment = require('moment');
 const AccountModel = require('../../models/AccountModel');
 const checkLoginMiddleware = require('../../middlewares/check-login-middleware');
 
+const router = express.Router();
+
 /* GET home page. */
 router.get('/', (req, res) => {
-  res.render('index', { title: 'AccountsDemo' });
+  res.redirect('/account');
 });
 
 router.get('/account', checkLoginMiddleware, (req, res) => {
